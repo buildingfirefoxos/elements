@@ -17,6 +17,7 @@
       name: collection.name,
       id: collection.id,
       categoryId: collection.categoryId,
+      cName: collection.cName,
       query: collection.query,
       icon: collection.icon,
       pinned: collection.pinned,
@@ -57,10 +58,7 @@
       return this.detail.id;
     },
 
-    update: function(detail) {
-      this.detail = detail;
-      this.detail.type = 'collection';
-    },
+    update: GaiaGrid.GridItem.prototype.updateFromDatastore,
 
     /**
      * Collections are always editable.
