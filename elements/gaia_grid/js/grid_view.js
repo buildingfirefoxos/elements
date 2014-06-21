@@ -145,6 +145,7 @@
      * Launches an app.
      */
     clickIcon: function(e) {
+      e.preventDefault();
       var container = e.target;
       var action = 'launch';
 
@@ -182,7 +183,9 @@
         // will not work because activities do not fire it.
         var returnTimeout = 500;
         setTimeout(function stateReturn() {
-          icon.element.classList.remove('launching');
+          if (icon.element) {
+            icon.element.classList.remove('launching');
+          }
         }, returnTimeout);
       }
 
