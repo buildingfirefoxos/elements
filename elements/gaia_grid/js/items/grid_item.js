@@ -361,10 +361,23 @@
     /**
      * Positions and scales an icon.
      */
-    transform: function(x, y, scale) {
+    transform: function(x, y, scale, element) {
       scale = scale || 1;
-      this.element.style.transform =
+      element = element || this.element;
+      element.style.transform =
         'translate(' + x + 'px,' + y + 'px) scale(' + scale + ')';
+    },
+
+    /**
+    Updates the title of the icon on the grid.
+    */
+    updateTitle: function() {
+      // it is remotely possible that we have not .rendered yet
+      if (!this.element) {
+        return;
+      }
+      var nameEl = this.element.querySelector('.title');
+      nameEl.textContent = this.name;
     },
 
     /**
@@ -380,9 +393,8 @@
       var lastIcon = this.icon;
       record.type = type;
       this.detail = record;
-      var nameEl = this.element.querySelector('.title');
-      if (nameEl && nameChanged) {
-        nameEl.textContent = this.name;
+      if (nameChanged) {
+        this.updateTitle();
 
         // Bug 1007743 - Workaround for projected content nodes disappearing
         document.body.clientTop;
